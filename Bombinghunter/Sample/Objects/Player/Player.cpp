@@ -18,8 +18,8 @@ Player::~Player()
 void Player::Initialize()
 {
 	//画像の読み込み
-	animation[0] = LoadGraph("Resource/Imager/Tri-pilot/1.png");
-	animation[1] = LoadGraph("Resoufce/Images/Tri-pilot/2.png");
+	animation[0] = LoadGraph("Resource/Images/飛ぶ1.png");
+	animation[1] = LoadGraph("Resource/Images/飛ぶ2.png");
 
 	//エラーチェック
 	if (animation[0] == -1 || animation[1] == -1)
@@ -89,7 +89,7 @@ void Player::Movement()
 	velocity.x += -1.0f;
 	filp_flag = TRUE;
   }
-  else if (InputControl::GetKey(KEY_INPUT_RIGHT)
+  else if (InputControl::GetKey(KEY_INPUT_RIGHT))
   {
 	velocity.x +=1.0f;
 	filp_flag=FALSE;

@@ -29,10 +29,10 @@ private:
 		GameObject* new_object = dynamic_cast<GameObject*>(new_instance);
 
 		//エラーチェック
-		if (new_object == nullpltr)
+		if (new_object == nullptr)
 		{
-			delete new_instancel;
-			throw std::_Invoker_strategy("ゲームオブジェクトが生成できませんでした");
+			delete new_instance;
+			throw std::string("ゲームオブジェクトが生成できませんでした");
 		}
 
 		//初期化処理
