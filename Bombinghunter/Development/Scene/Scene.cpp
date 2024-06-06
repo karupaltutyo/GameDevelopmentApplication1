@@ -1,13 +1,14 @@
 #include "Scene.h"
 #include"../Objects/Enemy/Enemy.h"
-#include "../Objects/Player/Player.h"
+#include"../Objects/Enemy/Enemy2.h"
+#include"../Objects/Enemy/Enemy3.h"
+#include"../Objects/Player/Player.h"
+#include"../Objects/tool/bom.h"
 #include"../Utility/InputControl.h"
 #include"DxLib.h"
 
-#define D_PIVOT_CENTER
-
 //コンストラクタ
-Scene::Scene() : objects()
+Scene::Scene() : objects(), back_grond(NULL)
 {
 
 }
@@ -22,7 +23,13 @@ Scene::~Scene()
 void Scene::Initialize()
 {
 	//プレイヤーを生成する
-	CreateObject<Player>(Vector2D(320.0f, 240.0f));
+	CreateObject<Player>(Vector2D(320.0f, 60.0f));
+	CreateObject<Enemy>(Vector2D(320.0f, 240.0f));
+	CreateObject<Enemy2>(Vector2D(320.0f, 60.0f));
+	CreateObject<Enemy3>(Vector2D(320.0f, 240.0f));
+
+	//背景画像を生成する
+	back_grond = LoadGraph("Resource/Images/background.png");
 }
 
 //更新処理
@@ -33,27 +40,18 @@ void Scene::Update()
 	{
 		obj->Update();
 	}
-
-	//オブジェクト同士の当たり判定チェック
-	for (int i = 0; i < objects.size(); i++)
-	{
-		for (int j = i + 1; j < objects.size(); j++)
-		{
-			//当たり判定チェック処理
-			HitCheckObject(objects[i], objects[j]);
-		}
-	}
-
-	//Zキーを押したら、敵を生成する
+	//弾の出現場所
 	if (InputControl::GetKeyDown(KEY_INPUT_Z))
 	{
-		CreateObject<Enemy>(Vector2D(100.0f, 400.0f));
+		CreateObject<Bom>(objects[0]->GetLocation());
 	}
 }
 
 //描画処理
 void Scene::Draw() const
 {
+	DrawRotaGraphF(320.0, 250.0, 1.2, 0.0, back_grond, TRUE);
+
 	//シーンに存在するオブジェクトの描画処理
 	for (GameObject* obj : objects)
 	{

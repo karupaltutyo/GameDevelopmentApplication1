@@ -55,9 +55,9 @@ void Player::Draw() const
 	//デバッグ用
 #if _DEBUG
 	//当たり判定の可視化
-	Vector2D box_collision_upper_left = location - (box_size/2.0f);
-	Vector2D box_collision_lower_right = location + (box_size/2.0f);
-	
+	Vector2D box_collision_upper_left = location - (box_size / 2.0f);
+	Vector2D box_collision_lower_right = location + (box_size / 2.0f);
+
 	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y, box_collision_lower_right.x, box_collision_lower_right.y, GetColor(255, 0, 0), FALSE);
 
 #endif
@@ -80,27 +80,43 @@ void Player::OnHitCollision(GameObject* hit_object)
 //移動処理
 void Player::Movement()
 {
-  //移動の速さ
-  Vector2D velocity = 0.0f;
+	//移動の速さ
+	Vector2D velocity = 0.0f;
 
-  //左右移動
-  if (InputControl::GetKey(KEY_INPUT_LEFT))
-  {
-	velocity.x += -1.0f;
-	filp_flag = TRUE;
-  }
-  else if (InputControl::GetKey(KEY_INPUT_RIGHT))
-  {
-	velocity.x +=1.0f;
-	filp_flag=FALSE;
-  }
-  else
-  {
-	velocity.x +=0.0f;
-  }
+	//左右移動
+	if (InputControl::GetKey(KEY_INPUT_LEFT))
+	{
+		velocity.x += -1.0f;
+		filp_flag = TRUE;
+	}
+	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
+	{
+		velocity.x += 1.0f;
+		filp_flag = FALSE;
+	}
+	else
+	{
 
-   //現在の位置座標に速さを加算する
-   location += velocity;
+		velocity.x += 0.0f;
+	}
+
+	//壁の衝突チェック
+	if (location.x < (0 + box_size / 2.0f))
+	{
+		//左壁
+		velocity.x = 0.0f;
+		location.x = box_size / 2.0f;
+	}
+	else if (location.x > (640.0f - box_size / 2.0f))
+	{
+		//右壁
+		velocity.x = 0.0f;
+		location.x = 640.0f - box_size / 2.0f;
+	}
+
+	//現在の位置座標に速さを加算する
+	location += velocity;
+
 }
 
 //アニメーション制御

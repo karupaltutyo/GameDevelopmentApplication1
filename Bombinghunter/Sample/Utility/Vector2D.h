@@ -30,6 +30,7 @@ public:
 	Vector2D& operator /=(const float& scalar);
 	Vector2D& operator /=(const Vector2D& location);
 
+public:
 	void ToInt(int* x, int* y)const;
 };
 
