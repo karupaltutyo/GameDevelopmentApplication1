@@ -1,27 +1,32 @@
-#include "bom.h"
+#include "bullet.h"
 #include "../../Utility/InputControl.h"
 #include "DxLib.h"
 
 //コンストラクタ
-Bom::Bom() :animation_count(0)
+bullet::bullet() :animation_count(0)
 {
 	animation[0] = NULL;
-	animation[1] = NULL;
+	/*animation[1] = NULL;
+	animation[2] = NULL;
+	animation[3] = NULL;*/
 }
 
 //デストラクタ
-Bom::~Bom()
+bullet::~bullet()
 {
 
 }
 //初期化処理
-void Bom::Initialize()
+void bullet::Initialize()
 {
 	//画像の読み込み
-	animation[0] = LoadGraph("Resource/Images/爆弾.png");
+	animation[0] = LoadGraph("Resource/Images/1 (5).png");
+	/*animation[1] = LoadGraph("Resource/images/eff1.png");
+	animation[2] = LoadGraph("Resource/images/eff2.png");
+	animation[3] = LoadGraph("Resource/images/eff3.png");*/
 
 	//エラーチェック
-	if (animation[0] == -1)
+	if (animation[0] == -1/*||animation[1]==-1||animation[2]==-1||animation[3]==-1*/)
 	{
 		throw("爆弾の画像がありません\n");
 	}
@@ -37,7 +42,7 @@ void Bom::Initialize()
 }
 
 //更新処理
-void Bom::Update()
+void bullet::Update()
 {
 	//移動処理
 	Movement();
@@ -46,7 +51,7 @@ void Bom::Update()
 }
 
 //描画処理
-void Bom::Draw() const
+void bullet::Draw() const
 {
 	//爆弾画像の描画
 	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE);
@@ -63,42 +68,35 @@ void Bom::Draw() const
 }
 
 //終了時処理
-void Bom::Finalize()
+void bullet::Finalize()
 {
 	//使用した画像を解放する
 	DeleteGraph(animation[0]);
+	/*DeleteGraph(animation[1]);
+	DeleteGraph(animation[2]);
+	DeleteGraph(animation[3]);*/
 }
 
 //当たり判定通知処理
-void Bom::OnHitCollision(GameObject* hit_object)
+void bullet::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時の処理
 }
 
-//爆弾の移動処理
-void Bom::Movement()
+//移動処理
+void bullet::Movement()
 {
-	//方向
+	//移動の速さ
 	Vector2D velocity = 0.0f;
-	if (velocity.x +=-1.0f)
-	{
-		InputControl::GetKey(KEY_INPUT_LEFT);
-		Vector2D velocity = 200.0f;
-	}
-	if (velocity.x += 1.0f)
-	{
-		InputControl::GetKey(KEY_INPUT_Z);
-		Vector2D velocity = 200.0f;
-	}
-	
-	//弾の速さ
-	velocity.y += +2.0f;
+
+	//上に動く
+	velocity.y += -1.0f;
 
 	location += velocity;
 }
 
 //アニメーション制御
-void Bom::AnimeControl()
+void bullet::AnimeControl()
 {
 	//フレームカウントを加算する
 	animation_count++;
@@ -119,4 +117,14 @@ void Bom::AnimeControl()
 			image = animation[0];
 		}
 	}
+}
+
+void bullet::SetDirection(Vector2D dir)
+{
+	// 自分と相手の方向ベクトルを算出する
+
+	// 算出した方向ベクトルを正規化する
+
+	// 正規化した値を移動量とする
+
 }

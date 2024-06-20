@@ -54,6 +54,10 @@ void Enemy::Draw() const
 	int flip_flag = FALSE;
 	//ハコテキ画像の描画
 	DrawRotaGraphF(location.x, 420.0, 1.0, radian, image, TRUE, filp_flag);
+	if()
+	DrawRotaGraphF(location.x, 420.0, 1.0, radian, image, TRUE, filp_flag);
+
+	DrawRotaGraphF(location.x, 420.0, 1.0, radian, image, TRUE, filp_flag);
 
 
 }

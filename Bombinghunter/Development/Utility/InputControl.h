@@ -7,6 +7,7 @@ class InputControl
 private:
 	static char now_key[D_KEYCODE_MAX];
 	static char old_key[D_KEYCODE_MAX];
+	int Time;								//クールタイム
 
 public:
 	static void Update();

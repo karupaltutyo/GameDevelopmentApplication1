@@ -21,9 +21,12 @@ void Enemy3::Initialize()
 	//画像の読み込み
 	animation[0] = LoadGraph("Resource/Images/1 (3).png");
 	animation[1] = LoadGraph("Resource/Images/2 (3).png");
+	animation[2] = LoadGraph("Resource/Images/3.png");
+	animation[3] = LoadGraph("Resource/Images/4.png");
+	animation[4] = LoadGraph("Resource/Images/5.png");
 
 	//エラーチェック
-	if (animation[0] == -1 || animation[1] == -1)
+	if (animation[0] == -1 || animation[1] == -1||animation[2]==-1||animation[3]==-1||animation[4]==-1)
 	{
 		throw("金のテキの画像がありません\n");
 	}
@@ -53,7 +56,7 @@ void Enemy3::Draw() const
 	//画像反転フラグ
 	int flip_flag = FALSE;
 	//ハーピー画像の描画
-	DrawRotaGraphF(location.x, 200.0, 1.0, radian, image, TRUE, filp_flag);
+	DrawRotaGraphF(location.x, 420.0, 1.0, radian, image, TRUE, filp_flag);
 
 
 }
@@ -64,6 +67,9 @@ void Enemy3::Finalize()
 	//使用した画像を解放する
 	DeleteGraph(animation[0]);
 	DeleteGraph(animation[1]);
+	DeleteGraph(animation[2]);
+	DeleteGraph(animation[3]);
+	DeleteGraph(animation[4]);
 }
 
 //当たり判定通知処理
@@ -113,5 +119,6 @@ void Enemy3::AnimeControl()
 		{
 			image = animation[0];
 		}
+
 	}
 }

@@ -2,13 +2,15 @@
 #include"../Objects/Enemy/Enemy.h"
 #include"../Objects/Enemy/Enemy2.h"
 #include"../Objects/Enemy/Enemy3.h"
+#include"../Objects/Enemy/Enemy4.h"
 #include"../Objects/Player/Player.h"
 #include"../Objects/tool/bom.h"
+#include"../Objects/tool/bullet.h"
 #include"../Utility/InputControl.h"
 #include"DxLib.h"
 
 //コンストラクタ
-Scene::Scene() : objects(), back_grond(NULL)
+Scene::Scene() : objects(), back_grond(NULL),Time()
 {
 
 }
@@ -24,9 +26,10 @@ void Scene::Initialize()
 {
 	//プレイヤーを生成する
 	CreateObject<Player>(Vector2D(320.0f, 60.0f));
-	CreateObject<Enemy>(Vector2D(320.0f, 240.0f));
+	CreateObject<Enemy>(Vector2D(320.0f, 380.0f));
 	CreateObject<Enemy2>(Vector2D(320.0f, 60.0f));
 	CreateObject<Enemy3>(Vector2D(320.0f, 240.0f));
+	CreateObject<Enemy4>(Vector2D(320.0f, 240.0f));
 
 	//背景画像を生成する
 	back_grond = LoadGraph("Resource/Images/background.png");
@@ -43,8 +46,25 @@ void Scene::Update()
 	//弾の出現場所
 	if (InputControl::GetKeyDown(KEY_INPUT_Z))
 	{
-		CreateObject<Bom>(objects[0]->GetLocation());
+		Time++;
+		if(Time>80)
+		{
+			CreateObject<Bom>(objects[0]->GetLocation());
+			Time=0;
+		}
+		
+		
 	}
+	//bulletの出現場所
+	Time++;
+	if (Time > 150)
+	{
+		CreateObject<bullet>(objects[1]->GetLocation())->SetDirection(0.0f/* プレイヤーの位置座標情報 */);
+		Time = 0;
+	}
+	
+	
+
 }
 
 //描画処理

@@ -1,9 +1,9 @@
-#include "Enemy2.h"
+#include "Enemy4.h"
 #include "../GameObject.h"
 #include "DxLib.h"
 
 //コンストラクタ
-Enemy2::Enemy2() :animation_count(0), filp_flag(FALSE)
+Enemy4::Enemy4() :animation_count(0), filp_flag(FALSE)
 {
 	animation[0] = NULL;
 	animation[1] = NULL;
@@ -11,22 +11,22 @@ Enemy2::Enemy2() :animation_count(0), filp_flag(FALSE)
 }
 
 //デストラクタ
-Enemy2::~Enemy2()
+Enemy4::~Enemy4()
 {
 
 }
 //初期化処理
-void Enemy2::Initialize()
+void Enemy4::Initialize()
 {
 	//画像の読み込み
-	animation[0] = LoadGraph("Resource/Images/1 (2).png");
-	animation[1] = LoadGraph("Resource/Images/2 (2).png");
+	animation[0] = LoadGraph("Resource/Images/1.png");
+	animation[1] = LoadGraph("Resource/Images/2.png");
 
 
 	//エラーチェック
 	if (animation[0] == -1 || animation[1] == -1)
 	{
-		throw("ハーピの画像がありません\n");
+		throw("ハネテキの画像がありません\n");
 	}
 
 	//向きの設定
@@ -40,7 +40,7 @@ void Enemy2::Initialize()
 }
 
 //更新処理
-void Enemy2::Update()
+void Enemy4::Update()
 {
 	//移動処理
 	Movement();
@@ -49,18 +49,18 @@ void Enemy2::Update()
 }
 
 //描画処理
-void Enemy2::Draw() const
+void Enemy4::Draw() const
 {
 	//画像反転フラグ
 	int flip_flag = FALSE;
-	//ハーピー画像の描画
+	//ハネテキ画像の描画
 	DrawRotaGraphF(location.x, 200.0, 1.0, radian, image, TRUE, filp_flag);
 
 
 }
 
 //終了時処理
-void Enemy2::Finalize()
+void Enemy4::Finalize()
 {
 	//使用した画像を解放する
 	DeleteGraph(animation[0]);
@@ -68,25 +68,25 @@ void Enemy2::Finalize()
 }
 
 //当たり判定通知処理
-void Enemy2::OnHitCollision(GameObject* hit_object)
+void Enemy4::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時の処理
 	direction = 0.0f;
 }
 
 //移動処理
-void Enemy2::Movement()
+void Enemy4::Movement()
 {
 	//移動の速さ
 	Vector2D velocity = 0.0f;
 
 	//左方向に進み続ける
-	location.x += 1.0f;
+	location.x += -1.5f;
 
 	//左の端に行くと、右の端へ移動する
-	if (location.x >= 640.0f)
+	if (location.x <= 0.0f)
 	{
-		location.x = 0.0f;
+		location.x = 640.0f;
 	}
 
 	//現在の位置座標に速さを加算する
@@ -94,7 +94,7 @@ void Enemy2::Movement()
 }
 
 //アニメーション制御
-void Enemy2::AnimeControl()
+void Enemy4::AnimeControl()
 {
 	//フレームカウントを加算する
 	animation_count++;

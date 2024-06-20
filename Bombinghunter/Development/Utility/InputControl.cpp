@@ -26,11 +26,6 @@ bool InputControl::GetKeyUp(int key_code)
 	return CheckKeyCodeRange(key_code) && ((now_key[key_code] == FALSE) && (old_key[key_code] == TRUE));
 }
 
-bool InputControl::GetKeyZ(int key_code)
-{
-	return CheckKeyCodeRange(key_code) && ((now_key[key_code] == TRUE) && (old_key[key_code] == TRUE));
-}
-
 bool InputControl::CheckKeyCodeRange(int key_code)
 {
 	return (0 <= key_code && key_code < D_KEYCODE_MAX);
