@@ -3,7 +3,7 @@
 #include "DxLib.h"
 
 //コンストラクタ
-Bom::Bom() :animation_count(0)
+Bom::Bom() :animation_count(0), filp_flag(FALSE)
 {
 	animation[0] = NULL;
 	animation[1] = NULL;
@@ -49,7 +49,7 @@ void Bom::Update()
 void Bom::Draw() const
 {
 	//爆弾画像の描画
-	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE);
+	DrawRotaGraphF(location.x, location.y, 0.5, radian, image, TRUE);
 
 	//デバッグ用
 #if _DEBUG
@@ -73,6 +73,7 @@ void Bom::Finalize()
 void Bom::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時の処理
+	direction = 0.0f;
 }
 
 //爆弾の移動処理
@@ -82,13 +83,13 @@ void Bom::Movement()
 	Vector2D velocity = 0.0f;
 	if (velocity.x +=-1.0f)
 	{
-		InputControl::GetKey(KEY_INPUT_LEFT);
+		
 		Vector2D velocity = 200.0f;
 	}
 	if (velocity.x += 1.0f)
 	{
-		InputControl::GetKey(KEY_INPUT_Z);
-		Vector2D velocity = 200.0f;
+		
+		Vector2D velocity = -200.0f;
 	}
 	
 	//弾の速さ

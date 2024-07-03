@@ -54,7 +54,7 @@ void bullet::Update()
 void bullet::Draw() const
 {
 	//爆弾画像の描画
-	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE);
+	DrawRotaGraphF(location.x, location.y, 0.5, radian, image, TRUE);
 
 	//デバッグ用
 #if _DEBUG

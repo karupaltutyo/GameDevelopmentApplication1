@@ -43,6 +43,16 @@ void Scene::Update()
 	{
 		obj->Update();
 	}
+
+	//オブジェクト同士の当たり判定チェック
+	for (int i = 0; i < objects.size(); i++)
+	{
+		for (int j = i + 1; j < objects.size(); j++)
+		{
+			//当たり判定チェック処理
+			HitCheckObject(objects[i], objects[j]);
+		}
+	}
 	//弾の出現場所
 	if (InputControl::GetKeyDown(KEY_INPUT_Z))
 	{

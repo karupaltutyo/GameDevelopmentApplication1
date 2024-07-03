@@ -53,8 +53,31 @@ void Enemy2::Draw() const
 {
 	//画像反転フラグ
 	int flip_flag = FALSE;
+
+	//進行方向によって、反転状態を決定する
+	if (direction.x > 0.0f)
+	{
+		flip_flag = FALSE;
+	}
+	else
+	{
+		flip_flag = TRUE;
+	}
 	//ハーピー画像の描画
-	DrawRotaGraphF(location.x, 200.0, 1.0, radian, image, TRUE, filp_flag);
+	DrawRotaGraphF(location.x, 200.0, 0.7, radian, image, TRUE, filp_flag);
+
+	//親クラスの描画処理を呼び出す
+	__super::Draw();
+
+	//デバッグ用
+#if _DEBUG
+	//当たり判定の可視化
+	Vector2D box_collision_upper_left = location - (box_size / 2.0f);
+	Vector2D box_collision_lower_right = location + (box_size / 2.0f);
+
+	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y, box_collision_lower_right.x, box_collision_lower_right.y, GetColor(255, 0, 0), FALSE);
+
+#endif
 
 
 }
@@ -71,7 +94,8 @@ void Enemy2::Finalize()
 void Enemy2::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時の処理
-	direction = 0.0f;
+	/*DeleteGraph(animation[0]);
+	DeleteGraph(animation[1]);*/
 }
 
 //移動処理

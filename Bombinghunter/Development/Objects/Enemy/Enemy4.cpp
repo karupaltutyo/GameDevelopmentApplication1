@@ -54,7 +54,7 @@ void Enemy4::Draw() const
 	//画像反転フラグ
 	int flip_flag = FALSE;
 	//ハネテキ画像の描画
-	DrawRotaGraphF(location.x, 200.0, 1.0, radian, image, TRUE, filp_flag);
+	DrawRotaGraphF(location.x, 200.0, 0.7, radian, image, TRUE, filp_flag);
 
 
 }

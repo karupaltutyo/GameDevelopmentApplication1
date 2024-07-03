@@ -2,6 +2,7 @@
 
 #include "../GameObject.h"
 
+
 class Enemy :public GameObject
 {
 private:
